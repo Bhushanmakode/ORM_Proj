@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Faker Module</title>
+</head>
+<style>
+    table{
+        font-size: 15px;
+    }
+</style>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="offset-md-1 col-md-11">
+            {% if data %}
+                <h2 class="text-center">Employee Data</h2>
+                {% if filtered_data %}
+                    <h3>Display Rows:{{ filtered_data }}of{{ final_data }} </h3>
+                {% endif %}
+
+                <form method="POST" action="{% url 'fetching_data' %}">
+                {% csrf_token %}
+                <label>Enter Job Name:</label>
+                <input type="text" name="job">
+                <input type="submit"value="Submit">
+                </form>
+                <table class="table table-bordered text-center">
+                <thead class="bg-success text-white">
+                <tr>
+                    <th>ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Job</th>
+                    <th>Salary</th>
+                    <th>City</th>
+                    <th>DateOfBirth</th>
+                    <th>Address</th>
+                </tr>
+
+                </thead>
+                <tbody class="bg-dark text-success">
+                {% for i in data %}
+                    <tr>
+                    <td>{{ i.id }}</td>
+                    <td>{{ i.first_name }}</td>
+                    <td>{{ i.last_name }}</td>
+                    <td>{{ i.email }}</td>
+                    <td>{{ i.job }}</td>
+                    <td>{{ i.salary }}</td>
+                    <td>{{ i.city }}</td>
+                    <td>{{ i.dob }}</td>
+                    <td>{{ i.address }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                </table>
+                {% else %}
+                <h4>Data is Not Available</h4>
+
+
+
+            {% endif %}
+        </div>
+    </div>
+</div>
+</body>
+</html>
